@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import java.text.NumberFormat;
 
@@ -27,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
+        CheckBox chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
+        boolean hasChocolate = chocolateCheckbox.isChecked();
         boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        String priceMessage = calculateOrderSummary(noOfCoffees,hasWhippedCream);
+        EditText nameText = (EditText) findViewById(R.id.name_input);
+        String name = nameText.getText().toString();
+        String priceMessage = calculateOrderSummary(name,noOfCoffees,hasWhippedCream,hasChocolate);
         displayMessage(priceMessage);
     }
 
@@ -66,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
     /*
     This method canculate the price of the person
      */
-    private String calculateOrderSummary(int number, boolean hasOrNot) {
-        return("Name: Kaptain Kunal\nQuantity: "+ number + "\nWhipped Cream Checked: "+ hasOrNot +"\nTotal: $"+ (number*5) + "\nThank You!");
+    private String calculateOrderSummary(String name,int number, boolean hasOrNot, boolean hasChoco) {
+        String output = "Name:" + name + "\nQuantity: " + number + "\nWhipped Cream Checked: " + hasOrNot + "\nChocolate Checked: " + hasChoco + "\nTotal: $" + (number*5) + "\nThank You!";
+        return(output);
     }
 
 }
